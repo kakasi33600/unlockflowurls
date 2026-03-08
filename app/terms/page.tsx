@@ -1,23 +1,26 @@
-import SiteHeader from '@/components/SiteHeader'
+import type { Metadata } from 'next'
 import SiteFooter from '@/components/SiteFooter'
+import SiteHeader from '@/components/SiteHeader'
+
+export const metadata: Metadata = {
+  title: 'Terms',
+  description: 'UnlockFlow terms of service.',
+  openGraph: { title: 'Terms', description: 'UnlockFlow terms of service.' },
+  twitter: { card: 'summary_large_image' },
+}
 
 export default function TermsPage() {
   return (
     <div>
       <SiteHeader />
-      <section className="hero">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h1>Terms of Service</h1>
-          <p>Usage guidelines for UnlockFlowURLS.</p>
+      <main className="section-shell py-12">
+        <div className="glass-card p-7">
+          <h1 className="text-4xl" style={{ fontFamily: 'var(--font-heading)' }}>
+            Terms
+          </h1>
+          <p className="mt-4 text-[--text-muted]">Use UnlockFlow only for legal content and compliant traffic practices.</p>
         </div>
-      </section>
-      <section className="py-20 px-4">
-        <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-md p-8 space-y-4">
-          <p className="text-gray-700">By using UnlockFlowURLS, you agree not to use the platform for abuse, spam, or illegal content.</p>
-          <p className="text-gray-700">We may suspend links or access that violate our policies.</p>
-          <p className="text-gray-700">For terms-related questions, contact: unlockflowurls@gmail.com.</p>
-        </div>
-      </section>
+      </main>
       <SiteFooter />
     </div>
   )

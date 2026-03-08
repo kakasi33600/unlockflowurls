@@ -1,22 +1,35 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
-
 export const metadata: Metadata = {
-  title: 'UnlockFlowURLS - Free URL Shortener & Earn Money',
-  description: 'Transform your long URLs into powerful short links that generate revenue',
+  metadataBase: new URL('https://unlockflowurls.com'),
+  title: {
+    default: 'UnlockFlow | Smart Unlock Links',
+    template: '%s | UnlockFlow',
+  },
+  description:
+    'Create high-converting unlock links with a clean 2-step flow, analytics, and reliable redirects.',
+  openGraph: {
+    title: 'UnlockFlow | Smart Unlock Links',
+    description:
+      'Create high-converting unlock links with a clean 2-step flow, analytics, and reliable redirects.',
+    type: 'website',
+    url: 'https://unlockflowurls.com',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'UnlockFlow | Smart Unlock Links',
+    description:
+      'Create high-converting unlock links with a clean 2-step flow, analytics, and reliable redirects.',
+  },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className="bg-[--bg-primary] text-[--text-primary]">
+        {children}
+      </body>
     </html>
   )
 }

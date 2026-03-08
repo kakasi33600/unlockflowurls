@@ -1,23 +1,26 @@
-import SiteHeader from '@/components/SiteHeader'
+import type { Metadata } from 'next'
 import SiteFooter from '@/components/SiteFooter'
+import SiteHeader from '@/components/SiteHeader'
+
+export const metadata: Metadata = {
+  title: 'Privacy',
+  description: 'UnlockFlow privacy policy.',
+  openGraph: { title: 'Privacy', description: 'UnlockFlow privacy policy.' },
+  twitter: { card: 'summary_large_image' },
+}
 
 export default function PrivacyPage() {
   return (
     <div>
       <SiteHeader />
-      <section className="hero">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h1>Privacy Policy</h1>
-          <p>How we collect, use, and protect your data.</p>
+      <main className="section-shell py-12">
+        <div className="glass-card p-7">
+          <h1 className="text-4xl" style={{ fontFamily: 'var(--font-heading)' }}>
+            Privacy
+          </h1>
+          <p className="mt-4 text-[--text-muted]">UnlockFlow stores operational data required for link routing and product analytics.</p>
         </div>
-      </section>
-      <section className="py-20 px-4">
-        <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-md p-8 space-y-4">
-          <p className="text-gray-700">We collect limited technical information to operate the service and improve performance.</p>
-          <p className="text-gray-700">We do not sell personal data. We use industry-standard security practices.</p>
-          <p className="text-gray-700">For privacy requests, contact: unlockflowurls@gmail.com.</p>
-        </div>
-      </section>
+      </main>
       <SiteFooter />
     </div>
   )

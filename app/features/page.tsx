@@ -1,48 +1,39 @@
-import SiteHeader from '@/components/SiteHeader'
+import type { Metadata } from 'next'
 import SiteFooter from '@/components/SiteFooter'
+import SiteHeader from '@/components/SiteHeader'
 
-const features = [
-  {
-    title: 'Multi-Step Redirects',
-    desc: 'Create engaging 4-step redirect flows with countdown timers and better monetization opportunities.',
-  },
-  {
-    title: 'Monetization Ready',
-    desc: 'Ad placement friendly flow helps you increase revenue per click.',
-  },
-  {
-    title: 'Advanced Analytics',
-    desc: 'Track clicks and link performance in real time.',
-  },
-  {
-    title: 'Mobile Optimized',
-    desc: 'Responsive experience across all devices.',
-  },
+export const metadata: Metadata = {
+  title: 'Features',
+  description: 'UnlockFlow feature highlights.',
+  openGraph: { title: 'Features', description: 'UnlockFlow feature highlights.' },
+  twitter: { card: 'summary_large_image' },
+}
+
+const cards = [
+  { title: '2-Step Unlock', desc: 'Countdown + final confirmation flow for qualified traffic.' },
+  { title: 'Fast Redirect', desc: 'Destination handoff using direct HTTP redirects.' },
+  { title: 'Dashboard', desc: 'Track click volume and manage links quickly.' },
 ]
 
 export default function FeaturesPage() {
   return (
     <div>
       <SiteHeader />
-
-      <section className="hero">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h1>Powerful Features</h1>
-          <p>Everything you need to create, manage, and monetize short URLs.</p>
-        </div>
-      </section>
-
-      <section className="py-20 px-4">
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-          {features.map((feature) => (
-            <div key={feature.title} className="bg-white p-8 rounded-xl shadow-md">
-              <h3 className="text-2xl font-bold mb-3">{feature.title}</h3>
-              <p className="text-gray-600">{feature.desc}</p>
-            </div>
+      <main className="section-shell py-12">
+        <h1 className="text-4xl" style={{ fontFamily: 'var(--font-heading)' }}>
+          Features
+        </h1>
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          {cards.map((card) => (
+            <article key={card.title} className="glass-card p-5">
+              <h2 className="text-xl" style={{ fontFamily: 'var(--font-heading)' }}>
+                {card.title}
+              </h2>
+              <p className="mt-2 text-sm text-[--text-muted]">{card.desc}</p>
+            </article>
           ))}
         </div>
-      </section>
-
+      </main>
       <SiteFooter />
     </div>
   )

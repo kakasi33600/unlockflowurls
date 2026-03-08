@@ -1,34 +1,40 @@
-import SiteHeader from '@/components/SiteHeader'
+import type { Metadata } from 'next'
 import SiteFooter from '@/components/SiteFooter'
+import SiteHeader from '@/components/SiteHeader'
+
+export const metadata: Metadata = {
+  title: 'Pricing',
+  description: 'UnlockFlow pricing plans.',
+  openGraph: { title: 'Pricing', description: 'UnlockFlow pricing plans.' },
+  twitter: { card: 'summary_large_image' },
+}
+
+const plans = [
+  { name: 'Free', price: '$0', detail: 'Create and share links' },
+  { name: 'Pro', price: '$19', detail: 'Advanced tracking and export' },
+  { name: 'Scale', price: '$99', detail: 'Team workflows and support' },
+]
 
 export default function PricingPage() {
   return (
     <div>
       <SiteHeader />
-      <section className="hero">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h1>Plans & Pricing</h1>
-          <p>Simple plans for creators, marketers, and teams.</p>
-        </div>
-      </section>
-
-      <section className="py-20 px-4">
-        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            { name: 'Free', price: '$0', details: 'Best for starting out' },
-            { name: 'Pro', price: '$19', details: 'Best for marketers' },
-            { name: 'Enterprise', price: '$99', details: 'Best for large teams' },
-          ].map((plan) => (
-            <div key={plan.name} className="bg-white rounded-xl shadow-md p-8 text-center">
-              <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
-              <p className="text-5xl font-bold mb-2" style={{ color: 'var(--primary-color)' }}>
-                {plan.price}
-              </p>
-              <p className="text-gray-600">{plan.details}</p>
-            </div>
+      <main className="section-shell py-12">
+        <h1 className="text-4xl" style={{ fontFamily: 'var(--font-heading)' }}>
+          Pricing
+        </h1>
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          {plans.map((plan) => (
+            <article key={plan.name} className="glass-card p-5">
+              <h2 className="text-xl" style={{ fontFamily: 'var(--font-heading)' }}>
+                {plan.name}
+              </h2>
+              <p className="mt-2 text-3xl">{plan.price}</p>
+              <p className="mt-1 text-sm text-[--text-muted]">{plan.detail}</p>
+            </article>
           ))}
         </div>
-      </section>
+      </main>
       <SiteFooter />
     </div>
   )

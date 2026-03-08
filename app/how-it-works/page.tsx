@@ -1,35 +1,33 @@
-import SiteHeader from '@/components/SiteHeader'
+import type { Metadata } from 'next'
 import SiteFooter from '@/components/SiteFooter'
+import SiteHeader from '@/components/SiteHeader'
 
-const steps = [
-  'Paste your long URL on the homepage.',
-  'Get a unique short code instantly.',
-  'Share the short link with your audience.',
-  'Users pass through 4 redirect steps and reach destination.',
-]
+export const metadata: Metadata = {
+  title: 'How It Works',
+  description: 'How UnlockFlow works from creation to redirect.',
+  openGraph: { title: 'How It Works', description: 'How UnlockFlow works from creation to redirect.' },
+  twitter: { card: 'summary_large_image' },
+}
 
 export default function HowItWorksPage() {
+  const steps = ['Create short code', 'Wait through countdown', 'Confirm final unlock', 'Redirect to destination']
+
   return (
     <div>
       <SiteHeader />
-      <section className="hero">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h1>How It Works</h1>
-          <p>Step-by-step flow for URL shortening and monetization.</p>
-        </div>
-      </section>
-      <section className="py-20 px-4">
-        <div className="max-w-4xl mx-auto space-y-4">
-          {steps.map((step, index) => (
-            <div key={step} className="bg-white rounded-xl shadow-md p-6">
-              <p className="text-lg font-semibold" style={{ color: 'var(--primary-color)' }}>
-                Step {index + 1}
-              </p>
-              <p className="text-gray-700">{step}</p>
+      <main className="section-shell py-12">
+        <h1 className="text-4xl" style={{ fontFamily: 'var(--font-heading)' }}>
+          How It Works
+        </h1>
+        <div className="mt-6 space-y-3">
+          {steps.map((step, i) => (
+            <div key={step} className="glass-card p-4">
+              <p className="text-xs uppercase tracking-[0.25em] text-[--accent]">Step {i + 1}</p>
+              <p className="mt-1">{step}</p>
             </div>
           ))}
         </div>
-      </section>
+      </main>
       <SiteFooter />
     </div>
   )

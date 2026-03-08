@@ -1,29 +1,28 @@
-import SiteHeader from '@/components/SiteHeader'
+import type { Metadata } from 'next'
 import SiteFooter from '@/components/SiteFooter'
+import SiteHeader from '@/components/SiteHeader'
+
+export const metadata: Metadata = {
+  title: 'About',
+  description: 'About UnlockFlow and our product mission.',
+  openGraph: { title: 'About', description: 'About UnlockFlow and our product mission.' },
+  twitter: { card: 'summary_large_image' },
+}
 
 export default function AboutPage() {
   return (
     <div>
       <SiteHeader />
-      <section className="hero">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h1>About UnlockFlowURLS</h1>
-          <p>The story behind our URL shortening and monetization platform.</p>
-        </div>
-      </section>
-      <section className="py-20 px-4">
-        <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-md p-8 space-y-4">
-          <h2 className="text-3xl font-bold">Our Mission</h2>
-          <p className="text-gray-700">
-            We help creators and marketers turn every click into measurable value. UnlockFlowURLS
-            combines simple URL shortening with monetization-ready redirect flows.
-          </p>
-          <p className="text-gray-700">
-            Our focus is reliability, fast redirects, and an experience that works across desktop
-            and mobile.
+      <main className="section-shell py-12">
+        <div className="glass-card p-7">
+          <h1 className="text-4xl" style={{ fontFamily: 'var(--font-heading)' }}>
+            About UnlockFlow
+          </h1>
+          <p className="mt-4 text-[--text-muted]">
+            UnlockFlow builds monetization-first URL workflows with clean UX, reliable redirecting, and strong operational controls.
           </p>
         </div>
-      </section>
+      </main>
       <SiteFooter />
     </div>
   )

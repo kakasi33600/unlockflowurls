@@ -1,53 +1,34 @@
-'use client'
-
-import { FormEvent, useState } from 'react'
-import SiteHeader from '@/components/SiteHeader'
+import type { Metadata } from 'next'
 import SiteFooter from '@/components/SiteFooter'
+import SiteHeader from '@/components/SiteHeader'
+
+export const metadata: Metadata = {
+  title: 'Contact',
+  description: 'Contact UnlockFlow support.',
+  openGraph: { title: 'Contact', description: 'Contact UnlockFlow support.' },
+  twitter: { card: 'summary_large_image' },
+}
 
 export default function ContactPage() {
-  const [status, setStatus] = useState('')
-
-  const onSubmit = (e: FormEvent) => {
-    e.preventDefault()
-    setStatus('Message sent successfully! We will reply within 24 hours.')
-  }
-
   return (
     <div>
       <SiteHeader />
-
-      <section className="hero">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h1>Get in Touch</h1>
-          <p>Have questions? Contact our support team.</p>
-        </div>
-      </section>
-
-      <section className="py-20 px-4">
-        <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-md p-8">
-          <h2 className="text-3xl font-bold mb-6">Contact Form</h2>
-          {status && <p className="mb-4 text-green-600 font-medium">{status}</p>}
-          <form onSubmit={onSubmit} className="space-y-4">
-            <input className="w-full border rounded-lg px-4 py-3" placeholder="Your Name" required />
-            <input
-              className="w-full border rounded-lg px-4 py-3"
-              placeholder="Your Email"
-              type="email"
-              required
-            />
-            <textarea
-              className="w-full border rounded-lg px-4 py-3"
-              rows={5}
-              placeholder="Your Message"
-              required
-            />
-            <button className="px-6 py-3 rounded-lg text-white font-semibold bg-[var(--primary-color)]">
+      <main className="section-shell py-12">
+        <div className="glass-card mx-auto max-w-2xl p-7">
+          <h1 className="text-4xl" style={{ fontFamily: 'var(--font-heading)' }}>
+            Contact
+          </h1>
+          <form className="mt-6 space-y-3">
+            <input required placeholder="Name" className="h-11 w-full rounded-lg border border-white/15 bg-black/35 px-3" />
+            <input required type="email" placeholder="Email" className="h-11 w-full rounded-lg border border-white/15 bg-black/35 px-3" />
+            <textarea required placeholder="Message" rows={5} className="w-full rounded-lg border border-white/15 bg-black/35 px-3 py-2" />
+            <button className="primary-cta" type="submit">
               Send Message
             </button>
           </form>
+          <p className="mt-4 text-sm text-[--text-muted]">Support reply window: within 24 hours.</p>
         </div>
-      </section>
-
+      </main>
       <SiteFooter />
     </div>
   )

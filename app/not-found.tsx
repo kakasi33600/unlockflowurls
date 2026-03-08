@@ -2,15 +2,15 @@ import Link from 'next/link'
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="bg-white rounded-xl shadow-md p-10 text-center max-w-lg w-full">
-        <h1 className="text-5xl font-black mb-4" style={{ color: 'var(--primary-color)' }}>
-          404
+    <div className="section-shell py-24">
+      <div className="glass-card mx-auto max-w-xl p-8 text-center">
+        <p className="text-xs uppercase tracking-[0.25em] text-[--text-muted]">404</p>
+        <h1 className="mt-2 text-4xl" style={{ fontFamily: 'var(--font-heading)' }}>
+          Page Not Found
         </h1>
-        <h2 className="text-2xl font-bold mb-3">Page Not Found</h2>
-        <p className="text-gray-600 mb-6">The page or short link you requested does not exist.</p>
-        <Link href="/" className="inline-block px-6 py-3 rounded-lg text-white bg-[var(--primary-color)] font-semibold">
-          Go to Homepage
+        <p className="mt-3 text-[--text-muted]">The requested page or short link does not exist.</p>
+        <Link href="/" className="primary-cta mt-6 inline-flex">
+          Back to Home
         </Link>
       </div>
     </div>

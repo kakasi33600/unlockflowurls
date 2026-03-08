@@ -1,27 +1,29 @@
 import { NextRequest, NextResponse } from 'next/server'
 import connectDB from '@/lib/db'
-import Url from '@/lib/models/Url'
+import ShortLink from '@/lib/models/ShortLink'
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { shortCode: string } }
-) {
+type RouteContext = {
+  params: { shortCode: string }
+}
+
+export async function GET(_req: NextRequest, { params }: RouteContext) {
   try {
     await connectDB()
-    
-    const urlData = await Url.findOneAndUpdate(
+    const link = await ShortLink.findOneAndUpdate(
       { shortCode: params.shortCode },
       { $inc: { clicks: 1 } },
       { new: true }
     )
+      .select({ destinationUrl: 1 })
+      .lean<{ destinationUrl: string } | null>()
 
-    if (!urlData) {
-      return NextResponse.redirect(new URL('/404', req.url))
+    if (!link) {
+      return NextResponse.json({ error: 'Not found' }, { status: 404 })
     }
 
-    return NextResponse.redirect(urlData.originalUrl)
+    return NextResponse.redirect(link.destinationUrl, 302)
   } catch (error) {
-    console.error('Redirect error:', error)
-    return NextResponse.redirect(new URL('/404', req.url))
+    console.error('GET /api/redirect failed:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }

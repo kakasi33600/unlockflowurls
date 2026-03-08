@@ -1,45 +1,39 @@
-import SiteHeader from '@/components/SiteHeader'
+import type { Metadata } from 'next'
 import SiteFooter from '@/components/SiteFooter'
+import SiteHeader from '@/components/SiteHeader'
 
-const faqs = [
-  {
-    q: 'How do I create a short link?',
-    a: 'Paste your long URL on the homepage and click Shorten URL.',
-  },
-  {
-    q: 'Is UnlockFlowURLS free?',
-    a: 'Yes. You can create short links without paid plans.',
-  },
-  {
-    q: 'Do links expire?',
-    a: 'No, links stay active unless removed manually.',
-  },
-  {
-    q: 'How does 4-step redirect work?',
-    a: 'Users pass through 4 short waiting pages before final destination.',
-  },
+export const metadata: Metadata = {
+  title: 'FAQ',
+  description: 'Frequently asked questions about UnlockFlow.',
+  openGraph: { title: 'FAQ', description: 'Frequently asked questions about UnlockFlow.' },
+  twitter: { card: 'summary_large_image' },
+}
+
+const items = [
+  { q: 'Do links expire?', a: 'No. UnlockFlow links are stored with no expiration field.' },
+  { q: 'Does UnlockFlow proxy files?', a: 'No. Final destination is opened by HTTP redirect only.' },
+  { q: 'How many steps are in unlock flow?', a: 'Two: countdown and final confirmation.' },
+  { q: 'Can I delete links?', a: 'Yes, from the dashboard table.' },
+  { q: 'Is rate limiting enabled?', a: 'Yes, shorten endpoint enforces IP-based rate limiting.' },
 ]
 
 export default function FaqPage() {
   return (
     <div>
       <SiteHeader />
-      <section className="hero">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h1>Frequently Asked Questions</h1>
-          <p>Everything you need to know about UnlockFlowURLS.</p>
-        </div>
-      </section>
-      <section className="py-20 px-4">
-        <div className="max-w-4xl mx-auto space-y-4">
-          {faqs.map((item) => (
-            <div key={item.q} className="bg-white rounded-xl shadow-md p-6">
-              <h3 className="text-xl font-bold mb-2">{item.q}</h3>
-              <p className="text-gray-600">{item.a}</p>
-            </div>
+      <main className="section-shell py-12">
+        <h1 className="text-4xl" style={{ fontFamily: 'var(--font-heading)' }}>
+          FAQ
+        </h1>
+        <div className="mt-6 space-y-3">
+          {items.map((item) => (
+            <details key={item.q} className="glass-card p-5">
+              <summary className="cursor-pointer font-medium">{item.q}</summary>
+              <p className="mt-2 text-sm text-[--text-muted]">{item.a}</p>
+            </details>
           ))}
         </div>
-      </section>
+      </main>
       <SiteFooter />
     </div>
   )
