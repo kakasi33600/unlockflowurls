@@ -1,4 +1,4 @@
-// Main JavaScript for UnlockFlowURLS Website
+// Main JavaScript for UnlockFlowURLSURLS Website
 
 document.addEventListener('DOMContentLoaded', function() {
     // Mobile Navigation Toggle
@@ -317,5 +317,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    console.log('UnlockFlowURLS initialized successfully! 🚀');
+    console.log('UnlockFlowURLSURLS initialized successfully! 🚀');
 });

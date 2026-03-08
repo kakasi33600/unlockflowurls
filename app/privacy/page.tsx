@@ -4,8 +4,8 @@ import SiteHeader from '@/components/SiteHeader'
 
 export const metadata: Metadata = {
   title: 'Privacy',
-  description: 'UnlockFlow privacy policy.',
-  openGraph: { title: 'Privacy', description: 'UnlockFlow privacy policy.' },
+  description: 'UnlockFlowURLS privacy policy.',
+  openGraph: { title: 'Privacy', description: 'UnlockFlowURLS privacy policy.' },
   twitter: { card: 'summary_large_image' },
 }
 
@@ -18,7 +18,7 @@ export default function PrivacyPage() {
           <h1 className="text-4xl" style={{ fontFamily: 'var(--font-heading)' }}>
             Privacy
           </h1>
-          <p className="mt-4 text-[--text-muted]">UnlockFlow stores operational data required for link routing and product analytics.</p>
+          <p className="mt-4 text-[--text-muted]">UnlockFlowURLS stores operational data required for link routing and product analytics.</p>
         </div>
       </main>
       <SiteFooter />

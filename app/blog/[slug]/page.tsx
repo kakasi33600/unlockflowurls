@@ -71,7 +71,7 @@ export default function BlogPostPage({ params }: PageProps) {
               Author
             </h3>
             <p className="mt-2 text-[--text-muted]">
-              UnlockFlow Editorial publishes tactical playbooks for creators, marketers, and growth teams.
+              UnlockFlowURLS Editorial publishes tactical playbooks for creators, marketers, and growth teams.
             </p>
           </section>
 

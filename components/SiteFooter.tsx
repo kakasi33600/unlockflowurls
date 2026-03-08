@@ -8,7 +8,7 @@ export default function SiteFooter() {
       <div className="section-shell grid gap-8 md:grid-cols-3">
         <div>
           <p className="mb-2 text-[--text-primary]" style={{ fontFamily: 'var(--font-heading)' }}>
-            UnlockFlow
+            UnlockFlowURLS
           </p>
           <p>Smart link unlocking with premium speed and reliability.</p>
         </div>
@@ -24,7 +24,7 @@ export default function SiteFooter() {
           </Link>
         </div>
         <div>
-          <p>© {new Date().getFullYear()} UnlockFlowURLs.com</p>
+          <p>© {new Date().getFullYear()} UnlockFlowURLSURLs.com</p>
         </div>
       </div>
     </footer>

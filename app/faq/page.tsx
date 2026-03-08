@@ -4,14 +4,14 @@ import SiteHeader from '@/components/SiteHeader'
 
 export const metadata: Metadata = {
   title: 'FAQ',
-  description: 'Frequently asked questions about UnlockFlow.',
-  openGraph: { title: 'FAQ', description: 'Frequently asked questions about UnlockFlow.' },
+  description: 'Frequently asked questions about UnlockFlowURLS.',
+  openGraph: { title: 'FAQ', description: 'Frequently asked questions about UnlockFlowURLS.' },
   twitter: { card: 'summary_large_image' },
 }
 
 const items = [
-  { q: 'Do links expire?', a: 'No. UnlockFlow links are stored with no expiration field.' },
-  { q: 'Does UnlockFlow proxy files?', a: 'No. Final destination is opened by HTTP redirect only.' },
+  { q: 'Do links expire?', a: 'No. UnlockFlowURLS links are stored with no expiration field.' },
+  { q: 'Does UnlockFlowURLS proxy files?', a: 'No. Final destination is opened by HTTP redirect only.' },
   { q: 'How many steps are in unlock flow?', a: 'Two: countdown and final confirmation.' },
   { q: 'Can I delete links?', a: 'Yes, from the dashboard table.' },
   { q: 'Is rate limiting enabled?', a: 'Yes, shorten endpoint enforces IP-based rate limiting.' },

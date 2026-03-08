@@ -21,7 +21,7 @@ export default function BlogIndexPage() {
       <SiteHeader />
       <main className="section-shell py-10">
         <h1 className="text-4xl" style={{ fontFamily: 'var(--font-heading)' }}>
-          UnlockFlow Blog
+          UnlockFlowURLS Blog
         </h1>
 
         <article className="glass-card mt-8 grid gap-6 p-6 md:grid-cols-[1.2fr_1fr]">

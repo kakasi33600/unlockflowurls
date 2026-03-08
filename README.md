@@ -1,4 +1,4 @@
-# 🔗 UnlockFlow - Next.js + TypeScript URL Shortener
+# 🔗 UnlockFlowURLS - Next.js + TypeScript URL Shortener
 
 ## ✅ WORKING NOW!
 
@@ -30,7 +30,7 @@ Your project is now running with **Next.js 14 + TypeScript** with the EXACT same
 ## 📁 Project Structure
 
 ```
-unlockflow/
+UnlockFlowURLS/
 ├── app/
 │   ├── page.tsx                          # Homepage
 │   ├── layout.tsx                        # Root layout

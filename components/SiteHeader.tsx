@@ -14,8 +14,8 @@ export default function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-white/10 bg-black/50 backdrop-blur-xl">
       <div className="section-shell flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-2 font-semibold" style={{ fontFamily: 'var(--font-heading)' }}>
-          <Image src="/logo.png" alt="UnlockFlow logo" width={32} height={32} priority />
-          <span>UnlockFlow</span>
+          <Image src="/logo.png" alt="UnlockFlowURLS logo" width={32} height={32} priority />
+          <span>UnlockFlowURLS</span>
         </Link>
 
         <nav className="flex items-center gap-5 text-sm text-[--text-muted]">

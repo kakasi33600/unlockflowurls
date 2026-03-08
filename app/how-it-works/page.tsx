@@ -4,8 +4,8 @@ import SiteHeader from '@/components/SiteHeader'
 
 export const metadata: Metadata = {
   title: 'How It Works',
-  description: 'How UnlockFlow works from creation to redirect.',
-  openGraph: { title: 'How It Works', description: 'How UnlockFlow works from creation to redirect.' },
+  description: 'How UnlockFlowURLS works from creation to redirect.',
+  openGraph: { title: 'How It Works', description: 'How UnlockFlowURLS works from creation to redirect.' },
   twitter: { card: 'summary_large_image' },
 }
 

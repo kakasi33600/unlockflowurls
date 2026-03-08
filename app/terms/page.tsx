@@ -4,8 +4,8 @@ import SiteHeader from '@/components/SiteHeader'
 
 export const metadata: Metadata = {
   title: 'Terms',
-  description: 'UnlockFlow terms of service.',
-  openGraph: { title: 'Terms', description: 'UnlockFlow terms of service.' },
+  description: 'UnlockFlowURLS terms of service.',
+  openGraph: { title: 'Terms', description: 'UnlockFlowURLS terms of service.' },
   twitter: { card: 'summary_large_image' },
 }
 
@@ -18,7 +18,7 @@ export default function TermsPage() {
           <h1 className="text-4xl" style={{ fontFamily: 'var(--font-heading)' }}>
             Terms
           </h1>
-          <p className="mt-4 text-[--text-muted]">Use UnlockFlow only for legal content and compliant traffic practices.</p>
+          <p className="mt-4 text-[--text-muted]">Use UnlockFlowURLS only for legal content and compliant traffic practices.</p>
         </div>
       </main>
       <SiteFooter />

@@ -19,7 +19,7 @@ export const blogPosts: BlogPost[] = [
     category: 'Monetization',
     date: '2026-01-18',
     readTime: '8 min read',
-    author: 'UnlockFlow Editorial',
+    author: 'UnlockFlowURLS Editorial',
     cover: '/logo.png',
     sections: [
       {
@@ -53,7 +53,7 @@ export const blogPosts: BlogPost[] = [
     category: 'Guide',
     date: '2026-01-28',
     readTime: '7 min read',
-    author: 'UnlockFlow Editorial',
+    author: 'UnlockFlowURLS Editorial',
     cover: '/logo.png',
     sections: [
       {
@@ -87,7 +87,7 @@ export const blogPosts: BlogPost[] = [
     category: 'Tips',
     date: '2026-02-04',
     readTime: '7 min read',
-    author: 'UnlockFlow Editorial',
+    author: 'UnlockFlowURLS Editorial',
     cover: '/logo.png',
     sections: [
       {
@@ -135,7 +135,7 @@ export const blogPosts: BlogPost[] = [
     category: 'Features',
     date: '2026-02-10',
     readTime: '6 min read',
-    author: 'UnlockFlow Editorial',
+    author: 'UnlockFlowURLS Editorial',
     cover: '/logo.png',
     sections: [
       {
@@ -162,14 +162,14 @@ export const blogPosts: BlogPost[] = [
     ],
   },
   {
-    slug: 'how-to-use-unlockflow-for-affiliate-marketing',
-    title: 'How to Use UnlockFlow for Affiliate Marketing',
+    slug: 'how-to-use-UnlockFlowURLS-for-affiliate-marketing',
+    title: 'How to Use UnlockFlowURLS for Affiliate Marketing',
     excerpt:
       'A field-tested setup for affiliate campaigns using segmented links, trust-first unlock copy, and conversion-focused destination matching.',
     category: 'Use Cases',
     date: '2026-02-17',
     readTime: '8 min read',
-    author: 'UnlockFlow Editorial',
+    author: 'UnlockFlowURLS Editorial',
     cover: '/logo.png',
     sections: [
       {
@@ -196,20 +196,20 @@ export const blogPosts: BlogPost[] = [
     ],
   },
   {
-    slug: 'getting-started-with-unlockflow-complete-beginner-guide',
-    title: 'Getting Started with UnlockFlow: Complete Beginner Guide',
+    slug: 'getting-started-with-UnlockFlowURLS-complete-beginner-guide',
+    title: 'Getting Started with UnlockFlowURLS: Complete Beginner Guide',
     excerpt:
       'A step-by-step beginner walkthrough to create your first link, understand the unlock journey, and monitor results in the dashboard.',
     category: 'Tutorial',
     date: '2026-02-24',
     readTime: '9 min read',
-    author: 'UnlockFlow Editorial',
+    author: 'UnlockFlowURLS Editorial',
     cover: '/logo.png',
     sections: [
       {
         heading: 'Step 1: Create your first short link',
         paragraphs: [
-          'Open the homepage and paste a full destination URL including protocol. UnlockFlow validates each URL and blocks unsafe local/private destinations by default. After submission, the API generates a short code and returns your shareable link. This short URL is what you use in social posts, campaigns, and partner placements.',
+          'Open the homepage and paste a full destination URL including protocol. UnlockFlowURLS validates each URL and blocks unsafe local/private destinations by default. After submission, the API generates a short code and returns your shareable link. This short URL is what you use in social posts, campaigns, and partner placements.',
           'Before sharing, click the generated link yourself to confirm the experience. You should see step one countdown, then the final unlock page, and then redirect to destination after clicking the final button. Always run this check before distributing at scale.',
         ],
       },

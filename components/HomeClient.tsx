@@ -19,7 +19,7 @@ const faqs = [
   },
   {
     q: 'Do links expire?',
-    a: 'No. UnlockFlow stores links without an expiry field by design.',
+    a: 'No. UnlockFlowURLS stores links without an expiry field by design.',
   },
   {
     q: 'Can I use affiliate links?',

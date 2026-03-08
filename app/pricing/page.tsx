@@ -4,8 +4,8 @@ import SiteHeader from '@/components/SiteHeader'
 
 export const metadata: Metadata = {
   title: 'Pricing',
-  description: 'UnlockFlow pricing plans.',
-  openGraph: { title: 'Pricing', description: 'UnlockFlow pricing plans.' },
+  description: 'UnlockFlowURLS pricing plans.',
+  openGraph: { title: 'Pricing', description: 'UnlockFlowURLS pricing plans.' },
   twitter: { card: 'summary_large_image' },
 }
 

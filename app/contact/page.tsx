@@ -4,8 +4,8 @@ import SiteHeader from '@/components/SiteHeader'
 
 export const metadata: Metadata = {
   title: 'Contact',
-  description: 'Contact UnlockFlow support.',
-  openGraph: { title: 'Contact', description: 'Contact UnlockFlow support.' },
+  description: 'Contact UnlockFlowURLS support.',
+  openGraph: { title: 'Contact', description: 'Contact UnlockFlowURLS support.' },
   twitter: { card: 'summary_large_image' },
 }
 
