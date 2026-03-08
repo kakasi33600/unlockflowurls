@@ -5,6 +5,8 @@ import SiteHeader from '@/components/SiteHeader'
 import UnlockPanel from '@/components/UnlockPanel'
 import connectDB from '@/lib/db'
 import ShortLink from '@/lib/models/ShortLink'
+import LegacyUrl from '@/lib/models/LegacyUrl'
+import { escapeRegex } from '@/lib/shortCode'
 
 type PageProps = {
   params: { shortCode: string }
@@ -20,17 +22,42 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image' },
 }
 
-function escapeRegex(value: string): string {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-}
-
 export default async function FinalUnlockPage({ params }: PageProps) {
   await connectDB()
-  const link = await ShortLink.findOne({
-    shortCode: { $regex: new RegExp(`^${escapeRegex(params.shortCode)}$`, 'i') },
-  })
+
+  const regex = new RegExp(`^${escapeRegex(params.shortCode)}$`, 'i')
+
+  const modern = await ShortLink.findOne({ shortCode: { $regex: regex } })
     .select({ destinationUrl: 1, clicks: 1, shortCode: 1 })
     .lean<{ destinationUrl: string; clicks: number; shortCode: string } | null>()
+
+  const legacy = modern
+    ? null
+    : await LegacyUrl.findOne({
+        $or: [{ shortCode: { $regex: regex } }, { slug: { $regex: regex } }],
+      })
+        .select({ originalUrl: 1, clicks: 1, clickCount: 1, shortCode: 1, slug: 1 })
+        .lean<{
+          originalUrl?: string
+          clicks?: number
+          clickCount?: number
+          shortCode?: string
+          slug?: string
+        } | null>()
+
+  const link = modern
+    ? {
+        destinationUrl: modern.destinationUrl,
+        clicks: modern.clicks,
+        shortCode: modern.shortCode,
+      }
+    : legacy?.originalUrl
+      ? {
+          destinationUrl: legacy.originalUrl,
+          clicks: legacy.clicks ?? legacy.clickCount ?? 0,
+          shortCode: (legacy.shortCode || legacy.slug || params.shortCode).toLowerCase(),
+        }
+      : null
 
   if (!link) notFound()
 

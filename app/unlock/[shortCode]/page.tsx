@@ -4,7 +4,7 @@ import CountdownGate from '@/components/CountdownGate'
 import SiteFooter from '@/components/SiteFooter'
 import SiteHeader from '@/components/SiteHeader'
 import connectDB from '@/lib/db'
-import ShortLink from '@/lib/models/ShortLink'
+import { resolveLinkByCode } from '@/lib/linkResolver'
 
 type PageProps = {
   params: { shortCode: string }
@@ -20,17 +20,9 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image' },
 }
 
-function escapeRegex(value: string): string {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-}
-
 export default async function UnlockCountdownPage({ params }: PageProps) {
   await connectDB()
-  const link = await ShortLink.findOne({
-    shortCode: { $regex: new RegExp(`^${escapeRegex(params.shortCode)}$`, 'i') },
-  })
-    .select({ destinationUrl: 1, shortCode: 1 })
-    .lean<{ destinationUrl: string; shortCode: string } | null>()
+  const link = await resolveLinkByCode(params.shortCode)
 
   if (!link) notFound()
 
