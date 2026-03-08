@@ -4,6 +4,16 @@ const nextConfig = {
   images: {
     remotePatterns: [{ protocol: 'https', hostname: '**' }],
   },
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.unlockflowurls.com' }],
+        destination: 'https://unlockflowurls.com/:path*',
+        permanent: true,
+      },
+    ]
+  },
   async headers() {
     return [
       {

@@ -10,9 +10,7 @@ export const dynamic = 'force-dynamic'
 type LegacyBody = { url?: string }
 
 function getBaseUrl(req: NextRequest): string {
-  const isProd = process.env.VERCEL_ENV === 'production' || process.env.NODE_ENV === 'production'
-  if (!isProd) return req.nextUrl.origin
-  return process.env.NEXT_PUBLIC_BASE_URL || req.nextUrl.origin
+  return req.nextUrl.origin
 }
 
 export async function POST(req: NextRequest) {
