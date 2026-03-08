@@ -10,16 +10,11 @@ export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export default async function ShortCodePage({ params }: Props) {
-  try {
-    await connectDB()
+  await connectDB()
 
-    const link = await resolveLinkByCode(params.shortCode)
-    if (!link) notFound()
+  const link = await resolveLinkByCode(params.shortCode)
+  if (!link) notFound()
 
-    void incrementLinkClicks(link)
-    redirect(`/unlock/${link.shortCode}`)
-  } catch (error) {
-    console.error('ShortCode lookup error:', error)
-    notFound()
-  }
+  void incrementLinkClicks(link)
+  redirect(`/unlock/${link.shortCode}`)
 }
