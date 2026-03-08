@@ -6,6 +6,12 @@ import { validateDestinationUrl } from '@/lib/urlSecurity'
 
 export const dynamic = 'force-dynamic'
 
+function getBaseUrl(req: NextRequest): string {
+  const isProd = process.env.VERCEL_ENV === 'production' || process.env.NODE_ENV === 'production'
+  if (!isProd) return req.nextUrl.origin
+  return process.env.NEXT_PUBLIC_BASE_URL || req.nextUrl.origin
+}
+
 function escapeRegex(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
@@ -53,7 +59,7 @@ export async function POST(req: NextRequest) {
       title,
     })
 
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://unlockflowurls.com'
+    const baseUrl = getBaseUrl(req)
     return NextResponse.json(
       {
         success: true,
