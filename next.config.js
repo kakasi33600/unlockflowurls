@@ -1,9 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  eslint: { ignoreDuringBuilds: false },
-  typescript: { ignoreBuildErrors: false },
-  images: { domains: ['unlockflowurls.com'] },
+  images: {
+    remotePatterns: [{ protocol: 'https', hostname: '**' }],
+  },
+  async headers() {
+    return [
+      {
+        source: '/api/:path*',
+        headers: [{ key: 'Cache-Control', value: 'no-store, max-age=0' }],
+      },
+    ]
+  },
 }
 
 module.exports = nextConfig

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import CountdownGate from '@/components/CountdownGate'
 import SiteFooter from '@/components/SiteFooter'
 import SiteHeader from '@/components/SiteHeader'
-import UnlockPanel from '@/components/UnlockPanel'
 import connectDB from '@/lib/db'
 import ShortLink from '@/lib/models/ShortLink'
 
@@ -14,9 +14,9 @@ export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
 export const metadata: Metadata = {
-  title: 'Final Unlock',
-  description: 'Step 2 final unlock before redirect.',
-  openGraph: { title: 'Final Unlock', description: 'Step 2 final unlock before redirect.' },
+  title: 'Unlock Link',
+  description: 'Step 1 countdown before destination unlock.',
+  openGraph: { title: 'Unlock Link', description: 'Step 1 countdown before destination unlock.' },
   twitter: { card: 'summary_large_image' },
 }
 
@@ -24,13 +24,13 @@ function escapeRegex(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
-export default async function FinalUnlockPage({ params }: PageProps) {
+export default async function UnlockCountdownPage({ params }: PageProps) {
   await connectDB()
   const link = await ShortLink.findOne({
     shortCode: { $regex: new RegExp(`^${escapeRegex(params.shortCode)}$`, 'i') },
   })
-    .select({ destinationUrl: 1, clicks: 1, shortCode: 1 })
-    .lean<{ destinationUrl: string; clicks: number; shortCode: string } | null>()
+    .select({ destinationUrl: 1, shortCode: 1 })
+    .lean<{ destinationUrl: string; shortCode: string } | null>()
 
   if (!link) notFound()
 
@@ -39,7 +39,7 @@ export default async function FinalUnlockPage({ params }: PageProps) {
   return (
     <div>
       <SiteHeader />
-      <UnlockPanel shortCode={link.shortCode} destinationHost={destinationHost} clicks={link.clicks} />
+      <CountdownGate shortCode={link.shortCode} destinationHost={destinationHost} />
       <SiteFooter />
     </div>
   )

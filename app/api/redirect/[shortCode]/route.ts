@@ -6,11 +6,15 @@ type RouteContext = {
   params: { shortCode: string }
 }
 
+function escapeRegex(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
 export async function GET(_req: NextRequest, { params }: RouteContext) {
   try {
     await connectDB()
     const link = await ShortLink.findOneAndUpdate(
-      { shortCode: params.shortCode },
+      { shortCode: { $regex: new RegExp(`^${escapeRegex(params.shortCode)}$`, 'i') } },
       { $inc: { clicks: 1 } },
       { new: true }
     )

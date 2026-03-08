@@ -16,6 +16,8 @@ type Props = {
 export default function DashboardTable({ links }: Props) {
   const [query, setQuery] = useState('')
   const [items, setItems] = useState(links)
+  const [page, setPage] = useState(1)
+  const pageSize = 20
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -24,6 +26,12 @@ export default function DashboardTable({ links }: Props) {
       (item) => item.shortCode.toLowerCase().includes(q) || item.destinationUrl.toLowerCase().includes(q)
     )
   }, [items, query])
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize))
+  const pageItems = useMemo(() => {
+    const start = (page - 1) * pageSize
+    return filtered.slice(start, start + pageSize)
+  }, [filtered, page])
 
   async function deleteLink(shortCode: string) {
     const ok = window.confirm(`Delete ${shortCode}?`)
@@ -36,6 +44,11 @@ export default function DashboardTable({ links }: Props) {
     }
 
     setItems((current) => current.filter((item) => item.shortCode !== shortCode))
+  }
+
+  function onSearch(value: string) {
+    setQuery(value)
+    setPage(1)
   }
 
   if (!items.length) {
@@ -57,7 +70,7 @@ export default function DashboardTable({ links }: Props) {
       <div className="border-b border-white/10 p-4">
         <input
           value={query}
-          onChange={(event) => setQuery(event.target.value)}
+          onChange={(event) => onSearch(event.target.value)}
           placeholder="Search by shortcode or destination"
           className="h-11 w-full rounded-lg border border-white/15 bg-black/35 px-4"
         />
@@ -75,7 +88,7 @@ export default function DashboardTable({ links }: Props) {
             </tr>
           </thead>
           <tbody>
-            {filtered.map((link) => (
+            {pageItems.map((link) => (
               <tr key={link.shortCode} className="border-b border-white/5">
                 <td className="px-4 py-3 mono">{link.shortCode}</td>
                 <td className="max-w-[320px] truncate px-4 py-3 text-[--text-muted]">{link.destinationUrl}</td>
@@ -98,6 +111,28 @@ export default function DashboardTable({ links }: Props) {
             ))}
           </tbody>
         </table>
+      </div>
+
+      <div className="flex items-center justify-between border-t border-white/10 px-4 py-3 text-xs text-[--text-muted]">
+        <span>
+          Page {page} of {totalPages}
+        </span>
+        <div className="flex gap-2">
+          <button
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            disabled={page === 1}
+            className="rounded-md border border-white/15 px-3 py-1 disabled:opacity-40"
+          >
+            Prev
+          </button>
+          <button
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+            disabled={page >= totalPages}
+            className="rounded-md border border-white/15 px-3 py-1 disabled:opacity-40"
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   )

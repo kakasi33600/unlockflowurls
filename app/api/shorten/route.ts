@@ -1,25 +1,19 @@
-import crypto from 'crypto'
+import { nanoid } from 'nanoid'
 import { NextRequest, NextResponse } from 'next/server'
 import connectDB from '@/lib/db'
 import ShortLink from '@/lib/models/ShortLink'
 import { checkRateLimit, getClientIp } from '@/lib/rateLimit'
 import { validateDestinationUrl } from '@/lib/urlSecurity'
 
-type ShortenBody = { url?: string }
+export const dynamic = 'force-dynamic'
 
-function buildShortUrl(req: NextRequest, shortCode: string): string {
-  const base = process.env.NEXT_PUBLIC_BASE_URL || req.nextUrl.origin
-  return `${base}/${shortCode}`
-}
-
-function extractTitle(parsedUrl: URL): string {
-  return parsedUrl.hostname.replace(/^www\./, '')
-}
+type LegacyBody = { url?: string }
 
 export async function POST(req: NextRequest) {
   try {
     const ip = getClientIp(req.headers)
     const rate = checkRateLimit(ip, 20, 60_000)
+
     if (!rate.allowed) {
       return NextResponse.json(
         { error: 'Too many requests. Please retry shortly.' },
@@ -27,13 +21,14 @@ export async function POST(req: NextRequest) {
           status: 429,
           headers: {
             'Retry-After': String(rate.retryAfterSec),
-            'Cache-Control': 'no-store',
+            'Cache-Control': 'no-store, max-age=0',
           },
         }
       )
     }
 
-    const body = (await req.json()) as ShortenBody
+    const body = (await req.json()) as LegacyBody
+
     const validation = validateDestinationUrl(body.url)
     if (!validation.ok) {
       return NextResponse.json({ error: validation.error }, { status: 400 })
@@ -41,37 +36,29 @@ export async function POST(req: NextRequest) {
 
     await connectDB()
 
-    let shortCode = ''
-    for (let attempt = 0; attempt < 8; attempt += 1) {
-      shortCode = crypto.randomBytes(4).toString('base64url')
-      const existing = await ShortLink.findOne({ shortCode }).lean()
-      if (!existing) break
-      shortCode = ''
-    }
-
-    if (!shortCode) {
-      return NextResponse.json({ error: 'Could not allocate short code' }, { status: 500 })
-    }
-
-    await ShortLink.create({
+    const shortCode = nanoid(7).toLowerCase()
+    const created = await ShortLink.create({
       shortCode,
       destinationUrl: validation.url.toString(),
-      title: extractTitle(validation.url),
-      clicks: 0,
+      title: validation.url.hostname.replace(/^www\./, ''),
     })
 
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || req.nextUrl.origin
+
     return NextResponse.json(
-      { shortUrl: buildShortUrl(req, shortCode) },
       {
-        status: 201,
-        headers: { 'Cache-Control': 'no-store' },
+        shortUrl: `${baseUrl}/${created.shortCode}`,
+        shortCode: created.shortCode,
+      },
+      { status: 201, headers: { 'Cache-Control': 'no-store, max-age=0' } }
+    )
+  } catch (error: unknown) {
+    if (typeof error === 'object' && error !== null && 'code' in error) {
+      if ((error as { code?: number }).code === 11000) {
+        return NextResponse.json({ error: 'Short code collision, try again' }, { status: 409 })
       }
-    )
-  } catch (error) {
+    }
     console.error('POST /api/shorten failed:', error)
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500, headers: { 'Cache-Control': 'no-store' } }
-    )
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
 }

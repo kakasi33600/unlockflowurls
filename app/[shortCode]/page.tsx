@@ -1,37 +1,39 @@
-import type { Metadata } from 'next'
-import { notFound } from 'next/navigation'
-import CountdownGate from '@/components/CountdownGate'
-import SiteFooter from '@/components/SiteFooter'
-import SiteHeader from '@/components/SiteHeader'
+import { notFound, redirect } from 'next/navigation'
 import connectDB from '@/lib/db'
 import ShortLink from '@/lib/models/ShortLink'
 
-type PageProps = {
+interface Props {
   params: { shortCode: string }
 }
 
-export const metadata: Metadata = {
-  title: 'Unlock Link',
-  description: 'Step 1 countdown before destination unlock.',
-  openGraph: { title: 'Unlock Link', description: 'Step 1 countdown before destination unlock.' },
-  twitter: { card: 'summary_large_image' },
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
+function escapeRegex(value: string): string {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
-export default async function UnlockCountdownPage({ params }: PageProps) {
-  await connectDB()
-  const link = await ShortLink.findOne({ shortCode: params.shortCode })
-    .select({ destinationUrl: 1 })
-    .lean<{ destinationUrl: string } | null>()
+export default async function ShortCodePage({ params }: Props) {
+  const { shortCode } = params
 
-  if (!link) notFound()
+  try {
+    await connectDB()
 
-  const destinationHost = new URL(link.destinationUrl).hostname.replace(/^www\./, '')
+    const link = await ShortLink.findOne({
+      shortCode: { $regex: new RegExp(`^${escapeRegex(shortCode)}$`, 'i') },
+    })
+      .select({ _id: 1, shortCode: 1 })
+      .lean<{ _id: string; shortCode: string } | null>()
 
-  return (
-    <div>
-      <SiteHeader />
-      <CountdownGate shortCode={params.shortCode} destinationHost={destinationHost} />
-      <SiteFooter />
-    </div>
-  )
+    if (!link) {
+      notFound()
+    }
+
+    void ShortLink.findByIdAndUpdate(link._id, { $inc: { clicks: 1 } }).exec()
+
+    redirect(`/unlock/${link.shortCode}`)
+  } catch (error) {
+    console.error('ShortCode lookup error:', error)
+    notFound()
+  }
 }
