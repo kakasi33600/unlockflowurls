@@ -1,0 +1,27 @@
+# robots.txt for UnlockFlowURLS
+
+# Allow all crawlers
+User-agent: *
+
+# Allow all pages except these
+Allow: /
+Disallow: /api/
+Disallow: /redirect/
+
+# Specific rules for Google
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /redirect/
+
+# Specific rules for Bing
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Disallow: /redirect/
+
+# Sitemap location
+Sitemap: https://unlockflowurls.com/sitemap.xml
+
+# Crawl delay (optional, in seconds)
+Crawl-delay: 1
