@@ -2,6 +2,7 @@ import { nanoid } from 'nanoid'
 import { NextRequest, NextResponse } from 'next/server'
 import connectDB from '@/lib/db'
 import ShortLink from '@/lib/models/ShortLink'
+import LegacyUrl from '@/lib/models/LegacyUrl'
 import { checkRateLimit, getClientIp } from '@/lib/rateLimit'
 import { validateDestinationUrl } from '@/lib/urlSecurity'
 
@@ -41,11 +42,31 @@ export async function POST(req: NextRequest) {
     await connectDB()
 
     const shortCode = nanoid(7).toLowerCase()
+    const destination = validation.url.toString()
+
     const created = await ShortLink.create({
       shortCode,
-      destinationUrl: validation.url.toString(),
+      destinationUrl: destination,
       title: validation.url.hostname.replace(/^www\./, ''),
     })
+
+    // Write to legacy collection too so old-project flow stays compatible.
+    await LegacyUrl.updateOne(
+      { shortCode: created.shortCode },
+      {
+        $set: {
+          shortCode: created.shortCode,
+          originalUrl: destination,
+          slug: created.shortCode,
+        },
+        $setOnInsert: {
+          clicks: 0,
+          clickCount: 0,
+          createdAt: new Date(),
+        },
+      },
+      { upsert: true }
+    )
 
     const baseUrl = getBaseUrl(req)
 

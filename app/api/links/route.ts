@@ -1,6 +1,7 @@
 import { nanoid } from 'nanoid'
 import { NextRequest, NextResponse } from 'next/server'
 import connectDB from '@/lib/db'
+import LegacyUrl from '@/lib/models/LegacyUrl'
 import ShortLink from '@/lib/models/ShortLink'
 import { validateDestinationUrl } from '@/lib/urlSecurity'
 
@@ -56,6 +57,23 @@ export async function POST(req: NextRequest) {
       destinationUrl: validation.url.toString(),
       title,
     })
+
+    await LegacyUrl.updateOne(
+      { shortCode: link.shortCode },
+      {
+        $set: {
+          shortCode: link.shortCode,
+          originalUrl: validation.url.toString(),
+          slug: link.shortCode,
+        },
+        $setOnInsert: {
+          clicks: 0,
+          clickCount: 0,
+          createdAt: new Date(),
+        },
+      },
+      { upsert: true }
+    )
 
     const baseUrl = getBaseUrl(req)
     return NextResponse.json(
